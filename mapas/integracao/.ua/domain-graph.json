@@ -1,0 +1,169 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "Nossa integração: memória da pessoa ou empresa",
+    "languages": [
+      "Português"
+    ],
+    "frameworks": [
+      "Understand Anything 2.9.7, visão de negócio"
+    ],
+    "description": "Nossa camada orienta o uso do projeto original de Fabio Akita. O servidor e a memória pertencem à instalação administrada pela pessoa ou empresa; não existe um servidor central nosso implícito. Derivação assistida nesta sessão; não foi executado /understand completo nem viewer.",
+    "analyzedAt": "2026-10-26",
+    "gitCommitHash": "0bcda4ba94ce744d54f626413f426bbaed744af7"
+  },
+  "nodes": [
+    {
+      "id": "domain:integracao",
+      "type": "domain",
+      "name": "Nossa integração: memória da pessoa ou empresa",
+      "summary": "Nossa camada orienta o uso do projeto original de Fabio Akita. O servidor e a memória pertencem à instalação administrada pela pessoa ou empresa; não existe um servidor central nosso implícito.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple",
+      "domainMeta": {
+        "businessRules": [
+          "Projeto original: Fabio Akita; nossa contribuição: regras, integração e procedimento de encerramento.",
+          "Codex e Claude acessam a instalação autorizada da pessoa ou empresa.",
+          "Project Brain precisa estar instalado e ser encontrado pela ferramenta.",
+          "Encerramento solicitado durante a sessão não é garantia de execução depois de fechar o aplicativo.",
+          "Captura automática, quando configurada, é outro mecanismo."
+        ]
+      }
+    },
+    {
+      "id": "flow:integracao",
+      "type": "flow",
+      "name": "Encerrar e continuar o trabalho",
+      "summary": "Visão de negócio derivada de fontes verificadas, com passos na ordem de uso.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple",
+      "domainMeta": {
+        "entryPoint": "Pedido da pessoa à ferramenta de IA",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "step:integracao:pedido",
+      "type": "step",
+      "name": "Pedido no Codex ou Claude",
+      "summary": "A pessoa usa uma das ferramentas conectadas e pede para encerrar a sessão ou preparar a continuidade.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:integracao:instrucoes",
+      "type": "step",
+      "name": "Ferramenta segue as regras de uso",
+      "summary": "As instruções instaladas indicam como consultar, o que pode ser guardado e qual procedimento de encerramento carregar.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:integracao:fechamento",
+      "type": "step",
+      "name": "Project Brain seleciona o que preservar",
+      "summary": "O procedimento confere decisões, aprendizados e pendências. Só guarda mudança durável ou nova continuidade; sem mudança, informa a ausência e não cria registro.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:integracao:conexao",
+      "type": "step",
+      "name": "Conexão leva ao servidor autorizado",
+      "summary": "A ferramenta se conecta ao sistema de memória administrado pela pessoa ou empresa. A conexão dá acesso, não concede novas permissões.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:integracao:servidor",
+      "type": "step",
+      "name": "Seu servidor guarda a memória do trabalho",
+      "summary": "O sistema original do Akita armazena as informações autorizadas da instalação. Pode ficar em computador disponível ou em servidor contratado e administrado pela pessoa ou empresa.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:integracao:continuar",
+      "type": "step",
+      "name": "Conferir agora e continuar depois",
+      "summary": "O procedimento lê de volta o que foi guardado. Uma nova sessão pode recuperar essas informações no mesmo projeto; isso só é comprovado após testar a recuperação.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "domain:integracao",
+      "target": "flow:integracao",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:integracao",
+      "target": "step:integracao:pedido",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 1 de 6",
+      "weight": 0.167
+    },
+    {
+      "source": "flow:integracao",
+      "target": "step:integracao:instrucoes",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 2 de 6",
+      "weight": 0.333
+    },
+    {
+      "source": "flow:integracao",
+      "target": "step:integracao:fechamento",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 3 de 6",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:integracao",
+      "target": "step:integracao:conexao",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 4 de 6",
+      "weight": 0.667
+    },
+    {
+      "source": "flow:integracao",
+      "target": "step:integracao:servidor",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 5 de 6",
+      "weight": 0.833
+    },
+    {
+      "source": "flow:integracao",
+      "target": "step:integracao:continuar",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 6 de 6",
+      "weight": 1
+    }
+  ],
+  "layers": [],
+  "tour": []
+}

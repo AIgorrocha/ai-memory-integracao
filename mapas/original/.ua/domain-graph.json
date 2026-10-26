@@ -1,0 +1,131 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "AI Memory: projeto de Fabio Akita",
+    "languages": [
+      "Português"
+    ],
+    "frameworks": [
+      "Understand Anything 2.9.7, visão de negócio"
+    ],
+    "description": "O projeto de código aberto oferece memória compartilhada para ferramentas de IA. A memória fica na instalação da pessoa ou da empresa, não em um serviço de memória hospedado pelo Akita. Derivação assistida nesta sessão; não foi executado /understand completo nem viewer.",
+    "analyzedAt": "2026-10-26",
+    "gitCommitHash": "1c86aebc14addccc7ac875913d565c681bfa4a50"
+  },
+  "nodes": [
+    {
+      "id": "domain:original",
+      "type": "domain",
+      "name": "AI Memory: projeto de Fabio Akita",
+      "summary": "O projeto de código aberto oferece memória compartilhada para ferramentas de IA. A memória fica na instalação da pessoa ou da empresa, não em um serviço de memória hospedado pelo Akita.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple",
+      "domainMeta": {
+        "businessRules": [
+          "Autoria do projeto original: Fabio Akita.",
+          "Cada instalação armazena seus próprios dados, sob responsabilidade de quem a administra.",
+          "Guardar e recuperar informações são funções diferentes; conexão não prova captura integral."
+        ]
+      }
+    },
+    {
+      "id": "flow:original",
+      "type": "flow",
+      "name": "Recuperar informações do trabalho",
+      "summary": "Visão de negócio derivada de fontes verificadas, com passos na ordem de uso.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple",
+      "domainMeta": {
+        "entryPoint": "Pedido da pessoa à ferramenta de IA",
+        "entryType": "manual"
+      }
+    },
+    {
+      "id": "step:original:pedido",
+      "type": "step",
+      "name": "Pessoa faz um pedido",
+      "summary": "A pessoa pede à ferramenta que recupere uma decisão, um procedimento ou o contexto anterior do trabalho.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:original:busca",
+      "type": "step",
+      "name": "Ferramenta busca informações autorizadas",
+      "summary": "A ferramenta usa sua conexão com o sistema de memória e consulta somente o projeto e as informações autorizados.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:original:memoria",
+      "type": "step",
+      "name": "Sistema consulta o que foi guardado",
+      "summary": "O sistema mantém páginas relacionadas com informações do trabalho e recursos de busca para encontrá-las. A busca não equivale a guardar toda a conversa.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "step:original:retorno",
+      "type": "step",
+      "name": "Informações voltam para a ferramenta",
+      "summary": "A ferramenta recebe as informações e suas referências. A pessoa pode continuar o trabalho sem tratar o histórico como prova de que o estado atual permanece igual.",
+      "tags": [
+        "visao-de-negocio"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "domain:original",
+      "target": "flow:original",
+      "type": "contains_flow",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "flow:original",
+      "target": "step:original:pedido",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 1 de 4",
+      "weight": 0.25
+    },
+    {
+      "source": "flow:original",
+      "target": "step:original:busca",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 2 de 4",
+      "weight": 0.5
+    },
+    {
+      "source": "flow:original",
+      "target": "step:original:memoria",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 3 de 4",
+      "weight": 0.75
+    },
+    {
+      "source": "flow:original",
+      "target": "step:original:retorno",
+      "type": "flow_step",
+      "direction": "forward",
+      "description": "Passo 4 de 4",
+      "weight": 1
+    }
+  ],
+  "layers": [],
+  "tour": []
+}
