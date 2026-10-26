@@ -35,6 +35,8 @@ Em equipe, compartilhe apenas informações apropriadas a quem pode acessar a ba
 
 ## Conferir antes de usar
 
+No ensaio de 26/10/2026, o Claude Code em um perfil isolado do Windows encontrou o Project Brain, gravou o fechamento, recuperou a informação em nova sessão e preservou as pendências quando não havia novidade. No Codex, houve bloqueios de execução; no Linux isolado, a descoberta do procedimento passou, mas instalação e continuidade pelo modelo ficaram pendentes. Veja [resultados e limites dos testes](TESTES.md). Isso não garante o mesmo resultado em todo computador.
+
 A instalação precisa mostrar a versão, confirmar o acesso à memória e localizar e ler uma informação identificada no projeto autorizado. Se a base estiver vazia, deve informar isso, sem inventar um resultado.
 
 Depois, em um projeto de teste autorizado, confira se a ferramenta encontra o Project Brain. Peça o encerramento com uma pequena decisão de teste, leia o que foi guardado e recupere esse registro em uma nova sessão. Uma base vazia deve receber páginas realmente relacionadas, sem referências a páginas inexistentes. Sem ambiente ou autorização para o teste, essa verificação fica pendente.
