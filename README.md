@@ -32,6 +32,8 @@ ai-memory/
   LICENSE
   scripts/
     Preparar-Memoria.ps1
+  skills/
+    project-brain/SKILL.md
   integracao/
     MEMORIA.md
     AGENTS.md
@@ -45,7 +47,17 @@ ai-memory/
     integracao/.ua/knowledge-graph.json
 ```
 
-Os arquivos de `integracao/` são modelos para mesclagem. A instalação copia ou mescla a política `MEMORIA.md` em um caminho global adequado ao cliente e acrescenta a referência no AGENTS.md ou CLAUDE.md existente, sem substituí-lo. `CAMINHO_GLOBAL_MEMORIA.md` é um marcador do modelo, que precisa virar o caminho real antes da gravação do arquivo instalado.
+Os arquivos de `integracao/` são modelos para mesclagem. A instalação copia ou mescla a política `MEMORIA.md` em um caminho global adequado ao cliente e acrescenta a referência no AGENTS.md ou CLAUDE.md existente, sem substituí-lo. `CAMINHO_GLOBAL_MEMORIA.md` e `CAMINHO_GLOBAL_PROJECT_BRAIN_SKILL.md` são marcadores dos modelos, substituídos pelos caminhos reais antes de salvar os arquivos instalados.
+
+## Encerrar e continuar uma sessão
+
+O kit inclui a skill portátil [Project Brain](skills/project-brain/SKILL.md). Após instalação e descoberta confirmadas no cliente, diga **“encerrar sessão”**, **“finalizar por hoje”**, **“preparar continuidade”** ou `/project-brain`. O fechamento confere a memória, salva só decisões, aprendizados, estado durável e continuidade pertinente, com fonte, data e links, e lê de volta. Sem delta, não inventa registro. Pendências anteriores são preservadas.
+
+O plano instala a skill normalmente em `~/.agents/skills/project-brain/SKILL.md` no Codex ou `~/.claude/skills/project-brain/SKILL.md` no Claude Code, conferindo os roots e a configuração efetivos, inclusive `CODEX_HOME` quando aplicável. Se já houver uma skill com esse nome, a instalação compara e pede autorização específica antes de substituir conteúdo diferente; não duplica a skill nos roots do mesmo cliente.
+
+O OK inicial instala a política de persistência pertinente ao fechamento, sem outro OK redundante. Não autoriza dados sensíveis, acesso novo, push ou publicação. Mudanças necessárias ficam na fonte canônica; commit local seletivo só quando permitido pelas regras do projeto. Obsidian só entra quando já configurado, sem criar memória paralela.
+
+A instalação deve verificar descoberta real e testar a frase de fechamento em escopo sintético autorizado, ler o resultado e recuperá-lo numa nova sessão. Base vazia com delta exige índice inicial e primeira página ligados de verdade. Se não houver ambiente ou autorização para esse teste, a validação fica pendente. Fechamento depende da sessão ativa: não é prometido após fechar o aplicativo, interromper ou atingir quota.
 
 ## Como as partes se ligam
 
@@ -65,3 +77,5 @@ A instalação precisa mostrar a versão, a conexão em `memory_status` e uma bu
 Este kit não contém memória privada, credenciais nem dados de clientes. A instalação global no computador do aluno e o comportamento após logoff/reboot precisam ser conferidos no ambiente real. Windows nativo é experimental na versão 3.2.0.
 
 Fontes oficiais: [Windows](https://github.com/akitaonrails/ai-memory/blob/v3.2.0/docs/windows.md), [instalação](https://github.com/akitaonrails/ai-memory/blob/v3.2.0/docs/install.md), [MCP](https://github.com/akitaonrails/ai-memory/blob/v3.2.0/docs/mcp-install.md) e [usuários](https://github.com/akitaonrails/ai-memory/blob/v3.2.0/docs/users.md).
+
+Descoberta e acionamento de skills: [Codex](https://developers.openai.com/codex/skills) e [Claude Code](https://code.claude.com/docs/en/skills).
