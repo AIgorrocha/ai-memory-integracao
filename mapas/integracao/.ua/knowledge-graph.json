@@ -1,0 +1,261 @@
+{
+  "version": "1.0.0",
+  "kind": "codebase",
+  "project": {
+    "name": "AI Memory, nossa integração, mapa curado",
+    "languages": [
+      "Markdown",
+      "PowerShell"
+    ],
+    "frameworks": [
+      "MCP",
+      "ai-memory 3.2.0"
+    ],
+    "description": "Integração documentada em 26/10/2026. gitCommitHash identifica o repositório local do curso que contém este mapa, não um fork de ai-memory. Fontes canônicas .ia e relatório de arquitetura; sem dados ou configuração privada real. /understand não foi executado.",
+    "analyzedAt": "2026-10-26",
+    "gitCommitHash": "aa19067aeb025d112d2c029ac414bdc09b9a0999"
+  },
+  "nodes": [
+    {
+      "id": "codex",
+      "type": "service",
+      "name": "Codex",
+      "summary": "Cliente da memória. MCP conectado, confiança dos hooks e captura efetiva exigem verificações distintas. Fonte: .ia/codex.md:11 e .ia/infra-memoria.md:26.",
+      "tags": [
+        "integracao",
+        "cliente"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "claude",
+      "type": "service",
+      "name": "Claude Code",
+      "summary": "Cliente da mesma memória. Existe opt-out documentado da captura de prompts; não assumir captura completa. Fonte: .ia/infra-memoria.md:7,26.",
+      "tags": [
+        "integracao",
+        "cliente"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "rules",
+      "type": "document",
+      "name": "AGENTS.md, CLAUDE.md e skills",
+      "summary": "Orientam consulta, escopo explícito quando necessário e registro de conhecimento durável com links. São instruções para o agente, não execução automática. Fonte: .ia/ai-memory-routing.md:1-5,16-18,34-57.",
+      "tags": [
+        "integracao",
+        "politica"
+      ],
+      "complexity": "moderate",
+      "filePath": "~/.ia/ai-memory-routing.md"
+    },
+    {
+      "id": "bridge",
+      "type": "module",
+      "name": "Conexão MCP e bridge",
+      "summary": "Integra clientes ao servidor existente. A bridge não instala nem inicia o servidor. Fonte: conselho-de-ia/memoria/aula-2-4.md:114-120.",
+      "tags": [
+        "integracao",
+        "conexao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "server",
+      "type": "service",
+      "name": "Servidor ai-memory original",
+      "summary": "Binário original operado em VM Linux. Se hospedado no PC, depende da disponibilidade do PC e VM; VPS é alternativa de hospedagem. Fonte: .ia/infra-memoria.md:5-14,20-31.",
+      "tags": [
+        "integracao",
+        "operacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "private-config",
+      "type": "config",
+      "name": "Configuração privada",
+      "summary": "Define conexão e autenticação fora do material público. Apenas a função é representada; nenhum valor real foi lido ou incluído. Escopos organizam busca e não substituem controle de acesso.",
+      "tags": [
+        "integracao",
+        "privado-excluido"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "operations",
+      "type": "pipeline",
+      "name": "Vigia e backup",
+      "summary": "Operação mantém saúde e recuperação. Rotina existente não comprova captura total, aprendizado generativo ou restauração atual. Esta rodada não executou vigia, backup ou restore. Fonte: .ia/infra-memoria.md:20-31.",
+      "tags": [
+        "integracao",
+        "operacao"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "shared-wiki",
+      "type": "resource",
+      "name": "Conhecimento compartilhado autorizado",
+      "summary": "Decisões, procedimentos e referências relacionados por links. Código, testes e banco atual continuam sendo fontes técnicas de verificação. Não é CRM nem cópia da conversa integral. Fonte: .ia/regras-duras.md:27-33.",
+      "tags": [
+        "integracao",
+        "wiki"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "rules",
+      "target": "codex",
+      "type": "configures",
+      "direction": "forward",
+      "description": "Orienta o agente a consultar e registrar no escopo correto.",
+      "weight": 1
+    },
+    {
+      "source": "rules",
+      "target": "claude",
+      "type": "configures",
+      "direction": "forward",
+      "description": "Orienta o agente com as mesmas políticas de continuidade.",
+      "weight": 1
+    },
+    {
+      "source": "codex",
+      "target": "bridge",
+      "type": "calls",
+      "direction": "forward",
+      "description": "Acessa ferramentas MCP pela integração configurada.",
+      "weight": 1
+    },
+    {
+      "source": "claude",
+      "target": "bridge",
+      "type": "calls",
+      "direction": "forward",
+      "description": "Acessa a mesma base pela integração configurada.",
+      "weight": 1
+    },
+    {
+      "source": "private-config",
+      "target": "bridge",
+      "type": "configures",
+      "direction": "forward",
+      "description": "Fornece parâmetros privados de conexão, sem expor valores.",
+      "weight": 1
+    },
+    {
+      "source": "bridge",
+      "target": "server",
+      "type": "calls",
+      "direction": "forward",
+      "description": "Encaminha ferramentas ao serviço existente.",
+      "weight": 1
+    },
+    {
+      "source": "server",
+      "target": "shared-wiki",
+      "type": "reads_from",
+      "direction": "forward",
+      "description": "Recupera páginas autorizadas para os clientes.",
+      "weight": 1
+    },
+    {
+      "source": "server",
+      "target": "shared-wiki",
+      "type": "writes_to",
+      "direction": "forward",
+      "description": "Persiste conhecimento pelo fluxo de mutação do original.",
+      "weight": 1
+    },
+    {
+      "source": "operations",
+      "target": "server",
+      "type": "validates",
+      "direction": "forward",
+      "description": "Rotinas documentadas verificam a saúde; não foram executadas nesta rodada.",
+      "weight": 1
+    },
+    {
+      "source": "operations",
+      "target": "shared-wiki",
+      "type": "reads_from",
+      "direction": "forward",
+      "description": "Backup preserva o estado autorizado para recuperação, sem prova de restore nesta rodada.",
+      "weight": 1
+    }
+  ],
+  "layers": [
+    {
+      "id": "clients",
+      "name": "Agentes e orientação",
+      "description": "Clientes compartilham memória, sem transferir permissões automaticamente.",
+      "nodeIds": [
+        "codex",
+        "claude",
+        "rules"
+      ]
+    },
+    {
+      "id": "connection",
+      "name": "Conexão autorizada",
+      "description": "Valores privados permanecem fora do pacote.",
+      "nodeIds": [
+        "bridge",
+        "private-config"
+      ]
+    },
+    {
+      "id": "runtime",
+      "name": "Serviço e operação",
+      "description": "Original, conhecimento persistido e rotinas de operação.",
+      "nodeIds": [
+        "server",
+        "shared-wiki",
+        "operations"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Consultar antes de decidir",
+      "description": "Instruções orientam os dois clientes a recuperar evidências.",
+      "nodeIds": [
+        "rules",
+        "codex",
+        "claude"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Conectar à mesma base",
+      "description": "MCP usa configuração autorizada, sem distribuir credenciais administrativas.",
+      "nodeIds": [
+        "bridge",
+        "private-config",
+        "server"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Relacionar conhecimento",
+      "description": "Páginas duráveis preservam decisões e procedimentos com referências.",
+      "nodeIds": [
+        "shared-wiki"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Provar disponibilidade",
+      "description": "Saúde, captura, consolidação e recuperação são verificações separadas.",
+      "nodeIds": [
+        "operations",
+        "server"
+      ]
+    }
+  ]
+}

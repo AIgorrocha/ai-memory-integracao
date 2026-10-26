@@ -1,0 +1,283 @@
+{
+  "version": "1.0.0",
+  "kind": "codebase",
+  "project": {
+    "name": "ai-memory Akita v3.2.0, mapa curado",
+    "languages": [
+      "Rust",
+      "Markdown"
+    ],
+    "frameworks": [
+      "MCP",
+      "SQLite"
+    ],
+    "description": "Seleção documental de componentes do original no commit fixado. Compatível com Understand Anything 2.9.7; /understand não foi executado. Não é inventário completo de símbolos.",
+    "analyzedAt": "2026-10-26",
+    "gitCommitHash": "1c86aebc14addccc7ac875913d565c681bfa4a50"
+  },
+  "nodes": [
+    {
+      "id": "cli",
+      "type": "module",
+      "name": "CLI e servidor",
+      "summary": "Entrada do binário Rust, comandos e inicialização dos transportes. Fonte: ARCHITECTURE.md:689-707.",
+      "tags": [
+        "original",
+        "entrada"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-cli"
+    },
+    {
+      "id": "hooks",
+      "type": "pipeline",
+      "name": "Captura por hooks",
+      "summary": "Recebe eventos de ciclo de vida, sanitiza e encaminha observações. A captura é limitada e não equivale a transcrição integral. Fonte: ARCHITECTURE.md:55-103,535-550.",
+      "tags": [
+        "original",
+        "captura"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-hooks"
+    },
+    {
+      "id": "mcp",
+      "type": "module",
+      "name": "Ferramentas MCP",
+      "summary": "Expõe consulta, leitura e operações de memória para clientes compatíveis. O suporte do cliente e seu escopo são configurados separadamente. Fonte: ARCHITECTURE.md:689-729.",
+      "tags": [
+        "original",
+        "consulta"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-mcp"
+    },
+    {
+      "id": "core",
+      "type": "module",
+      "name": "Tipos de domínio",
+      "summary": "Tipos, erros e identificadores compartilhados. Não executa entrada ou saída de dados. Fonte: ARCHITECTURE.md:693.",
+      "tags": [
+        "original",
+        "dominio"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-core"
+    },
+    {
+      "id": "wiki",
+      "type": "resource",
+      "name": "Wiki Markdown e Git",
+      "summary": "Fonte canônica em páginas Markdown versionadas em Git. Gravações atômicas e reconciliação de alterações. Fonte: ARCHITECTURE.md:535-544,695.",
+      "tags": [
+        "original",
+        "fonte-canonica"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-wiki"
+    },
+    {
+      "id": "index",
+      "type": "table",
+      "name": "SQLite e índices derivados",
+      "summary": "Índice de recuperação, sessões, observações e handoffs. WAL e escritor único. A wiki é canônica para páginas; eventos não são uma transcrição completa. Fonte: ARCHITECTURE.md:535-550.",
+      "tags": [
+        "original",
+        "indice"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-store"
+    },
+    {
+      "id": "consolidation",
+      "type": "pipeline",
+      "name": "Compilação e manutenção",
+      "summary": "Resumo de sessão por regras funciona sem LLM. Consolidação generativa depende de provedor configurado; não assumir que está ativa. Fonte: ARCHITECTURE.md:104-170.",
+      "tags": [
+        "original",
+        "llm-opcional"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-consolidate"
+    },
+    {
+      "id": "providers",
+      "type": "module",
+      "name": "Provedores opcionais",
+      "summary": "Interfaces para LLM e embeddings. Vetores e consolidação generativa dependem da configuração. Sem promessa de economia ou qualidade automática. Fonte: ARCHITECTURE.md:134-185,698.",
+      "tags": [
+        "original",
+        "opcional"
+      ],
+      "complexity": "moderate",
+      "filePath": "crates/ai-memory-llm"
+    }
+  ],
+  "edges": [
+    {
+      "source": "cli",
+      "target": "mcp",
+      "type": "serves",
+      "direction": "forward",
+      "description": "Inicializa o transporte e a superfície de ferramentas MCP.",
+      "weight": 1
+    },
+    {
+      "source": "cli",
+      "target": "hooks",
+      "type": "serves",
+      "direction": "forward",
+      "description": "Disponibiliza a entrada de eventos do servidor.",
+      "weight": 1
+    },
+    {
+      "source": "mcp",
+      "target": "core",
+      "type": "depends_on",
+      "direction": "forward",
+      "description": "Ferramentas operam com tipos de domínio compartilhados.",
+      "weight": 1
+    },
+    {
+      "source": "hooks",
+      "target": "core",
+      "type": "depends_on",
+      "direction": "forward",
+      "description": "Eventos recebem tipo de observação antes da persistência.",
+      "weight": 1
+    },
+    {
+      "source": "hooks",
+      "target": "index",
+      "type": "writes_to",
+      "direction": "forward",
+      "description": "Eventos sanitizados são encaminhados ao escritor de observações.",
+      "weight": 1
+    },
+    {
+      "source": "hooks",
+      "target": "wiki",
+      "type": "writes_to",
+      "direction": "forward",
+      "description": "O ciclo de sessão atualiza registros e páginas através do fluxo de escrita.",
+      "weight": 1
+    },
+    {
+      "source": "mcp",
+      "target": "index",
+      "type": "reads_from",
+      "direction": "forward",
+      "description": "A consulta recupera candidatos pelo índice derivado.",
+      "weight": 1
+    },
+    {
+      "source": "mcp",
+      "target": "wiki",
+      "type": "reads_from",
+      "direction": "forward",
+      "description": "A leitura entrega páginas da wiki.",
+      "weight": 1
+    },
+    {
+      "source": "consolidation",
+      "target": "index",
+      "type": "reads_from",
+      "direction": "forward",
+      "description": "Compilação usa observações e informações de sessão.",
+      "weight": 1
+    },
+    {
+      "source": "consolidation",
+      "target": "wiki",
+      "type": "writes_to",
+      "direction": "forward",
+      "description": "Resultados passam pelo caminho normal de mutação da wiki.",
+      "weight": 1
+    },
+    {
+      "source": "consolidation",
+      "target": "providers",
+      "type": "calls",
+      "direction": "forward",
+      "description": "Somente os caminhos generativos configurados chamam LLM.",
+      "weight": 1
+    },
+    {
+      "source": "mcp",
+      "target": "providers",
+      "type": "calls",
+      "direction": "forward",
+      "description": "A recuperação pode gerar embedding da consulta quando o provedor está configurado; os vetores de páginas são armazenados no índice.",
+      "weight": 1
+    }
+  ],
+  "layers": [
+    {
+      "id": "entry",
+      "name": "Entrada e contrato",
+      "description": "Binário, ferramentas e tipos.",
+      "nodeIds": [
+        "cli",
+        "mcp",
+        "hooks",
+        "core"
+      ]
+    },
+    {
+      "id": "data",
+      "name": "Memória persistida",
+      "description": "Páginas canônicas e índice derivado.",
+      "nodeIds": [
+        "wiki",
+        "index"
+      ]
+    },
+    {
+      "id": "optional",
+      "name": "Compilação e provedores",
+      "description": "Separar resumo sem LLM de funções opcionais.",
+      "nodeIds": [
+        "consolidation",
+        "providers"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Capturar com limites",
+      "description": "Hooks recebem eventos sanitizados, sem garantir captura integral.",
+      "nodeIds": [
+        "hooks",
+        "index"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Preservar páginas",
+      "description": "Wiki Markdown versionada e índice SQLite têm funções diferentes.",
+      "nodeIds": [
+        "wiki",
+        "index"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Consultar por MCP",
+      "description": "Agentes consultam o mesmo serviço através de ferramentas.",
+      "nodeIds": [
+        "cli",
+        "mcp"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Separar o opcional",
+      "description": "A configuração determina se LLM e embeddings são usados.",
+      "nodeIds": [
+        "consolidation",
+        "providers"
+      ]
+    }
+  ]
+}
