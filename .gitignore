@@ -1,0 +1,7 @@
+.env*
+*.local.*
+.runtime/
+ai-memory-original/
+*.log
+*.sqlite*
+hook-spool/

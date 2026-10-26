@@ -4,9 +4,16 @@ O ai-memory é o projeto de código aberto de [Fabio Akita](https://github.com/a
 
 ## Começar
 
-Abra o Codex ou Claude Code na pasta deste kit e use o [pedido de instalação](PROMPT-INSTALAR.md). A versão de referência é 3.2.0. A ferramenta primeiro identifica seu ambiente e a instalação existente, mostra as mudanças e pede uma confirmação. Depois executa a instalação e verifica a conexão.
+Clone o [kit de integração](https://github.com/AIgorrocha/ai-memory-integracao) em uma pasta nova:
 
-Se quiser acompanhar o código original, clone-o em pasta nova:
+```powershell
+git clone https://github.com/AIgorrocha/ai-memory-integracao.git
+Set-Location .\ai-memory-integracao
+```
+
+Abra essa pasta no Codex ou Claude Code e use o [pedido de instalação](PROMPT-INSTALAR.md). A versão de referência do ai-memory é 3.2.0. A ferramenta primeiro identifica seu ambiente e a instalação existente, mostra as mudanças e pede uma confirmação. Depois executa a instalação e verifica a conexão.
+
+Opcional, para inspecionar o código original do Akita, clone-o em outra pasta:
 
 ```powershell
 git clone --branch v3.2.0 --depth 1 https://github.com/akitaonrails/ai-memory.git ai-memory-original
@@ -27,6 +34,9 @@ ai-memory/
     MEMORIA.md
     AGENTS.md
     CLAUDE.md
+  diagramas/
+    arquitetura-original.html
+    nossa-camada.html
   mapas/
     LEIA-ME.md
     original/.ua/knowledge-graph.json
@@ -44,7 +54,7 @@ Os arquivos de `integracao/` são modelos para mesclagem. A instalação copia o
 
 No uso pessoal, seus clientes podem acessar a mesma memória. Em equipe, a base comum recebe apenas informação apropriada a seus usuários autorizados. Configure os controles oficiais de acesso da versão instalada, incluindo acesso por projeto quando disponível. Nome de pasta não autoriza acesso e não há permissão por página.
 
-Os mapas do original e da integração ficam em `mapas/`, com orientação em `mapas/LEIA-ME.md`. São mapas curados de fontes, compatíveis com Understand-Anything. Os diagramas HTML/SVG da aula permitem explorar as estruturas; a geração por `/understand` e a abertura do visualizador local do plugin não foram executadas.
+Abra os diagramas interativos: [arquitetura original](diagramas/arquitetura-original.html) e [nossa camada de integração](diagramas/nossa-camada.html). Os mapas do original e da integração ficam em `mapas/`, com orientação em `mapas/LEIA-ME.md`. São mapas curados de fontes, compatíveis com Understand-Anything. Os diagramas HTML/SVG da aula permitem explorar as estruturas; a geração por `/understand` e a abertura do visualizador local do plugin não foram executadas.
 
 ## Conferir o resultado
 
