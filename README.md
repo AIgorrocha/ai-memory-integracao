@@ -1,5 +1,7 @@
 # AI Memory: kit da Aula 2.4
 
+[Apresentar a Aula 2.4 no navegador](https://aigorrocha.github.io/ai-memory-integracao/aula/) · 11 slides, setas para navegar e F para tela cheia.
+
 O ai-memory é o projeto de código aberto de [Fabio Akita](https://github.com/akitaonrails/ai-memory). Este kit reúne nossa camada de instruções, integração, operação e preparação da instalação. Não é um fork do código original. O Conselho de IA, dedicado à arquitetura multimodelo, é um material separado.
 
 ## Começar
