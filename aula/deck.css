@@ -1,6 +1,5 @@
-/* Deck do curso IA na Prática. Mesmo chassi do deck UGERF INOVA 2026 (prancha com moldura,
-   cabeçalho, carimbo no rodapé), na identidade @igorrocha.ia (clients/igorrocha-ia/design-system.md).
-   Cada aula: telas/aula-N-N/aula.html usa este arquivo e deck.js. */
+/* Deck do curso IA na Prática (prancha com moldura, cabeçalho e carimbo no rodapé),
+   na identidade @igorrocha.ia. Este arquivo e o deck.js montam os slides da aula. */
 :root{
   --bg:#0D0D0D;--surface:#1A1A1A;--fg:#FFFFFF;--mut:#A0A0A0;
   --blue:#4A90D9;--purple:#7C3AED;--green:#10B981;--red:#EF4444;
